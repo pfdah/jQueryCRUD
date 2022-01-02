@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="jqueryAcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" />
+          <Property Name="Section" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Roll" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="ClassId" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentPerformance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="EnglishScore" Type="int" />
+          <Property Name="MathScore" Type="int" />
+          <Property Name="ScienceScore" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Student__ClassId__286302EC">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentPerfo__ID__29572725">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentPerformance" Type="Self.StudentPerformance" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudentPerformance">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="jqueryAcModelStoreContainer">
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentPerformance" EntityType="Self.StudentPerformance" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Student__ClassId__286302EC" Association="Self.FK__Student__ClassId__286302EC">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentPerfo__ID__29572725" Association="Self.FK__StudentPerfo__ID__29572725">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentPerformance" EntitySet="StudentPerformance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="jqueryAcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Student__ClassId__286302EC" FromRole="Class" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Roll" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ClassId" Type="Int32" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Student__ClassId__286302EC" FromRole="Student" ToRole="Class" />
+          <NavigationProperty Name="StudentPerformance" Relationship="Self.FK__StudentPerfo__ID__29572725" FromRole="Student" ToRole="StudentPerformance" />
+        </EntityType>
+        <EntityType Name="StudentPerformance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="EnglishScore" Type="Int32" />
+          <Property Name="MathScore" Type="Int32" />
+          <Property Name="ScienceScore" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__StudentPerfo__ID__29572725" FromRole="StudentPerformance" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK__Student__ClassId__286302EC">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentPerfo__ID__29572725">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentPerformance" Type="Self.StudentPerformance" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudentPerformance">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="jqueryAcEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="StudentPerformances" EntityType="Self.StudentPerformance" />
+          <AssociationSet Name="FK__Student__ClassId__286302EC" Association="Self.FK__Student__ClassId__286302EC">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentPerfo__ID__29572725" Association="Self.FK__StudentPerfo__ID__29572725">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentPerformance" EntitySet="StudentPerformances" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="jqueryAcModelStoreContainer" CdmEntityContainer="jqueryAcEntities">
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="jqueryAcModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="jqueryAcModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Roll" ColumnName="Roll" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentPerformances">
+            <EntityTypeMapping TypeName="jqueryAcModel.StudentPerformance">
+              <MappingFragment StoreEntitySet="StudentPerformance">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EnglishScore" ColumnName="EnglishScore" />
+                <ScalarProperty Name="MathScore" ColumnName="MathScore" />
+                <ScalarProperty Name="ScienceScore" ColumnName="ScienceScore" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
