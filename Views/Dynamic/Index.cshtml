@@ -1,0 +1,95 @@
+﻿@model IEnumerable<jqueryCrud.Models.floor>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<table id="tblFloor" class="table table-striped table-hover" cellpadding="0" cellspacing="0">
+    <tr>
+        <th style="width:100px">Floor Id</th>
+        <th style="width:150px">Floor Name</th>
+        <th style="width:150px">Area</th>
+        <th style="width:150px">Rate</th>
+        <th style="width:150px">Action</th>
+    </tr>
+    @foreach (var floor in Model)
+    {
+        <tr>
+            <td class="FloorId">
+                <span>@floor.floor_id</span>
+            </td>
+            <td class="FloorName">
+                <span>@floor.floor_name</span>
+                <input type="text"  value="@floor.floor_name" style="display:none" />
+            </td>
+            <td class="Area">
+                <span>@floor.area</span>
+                <input type="text" value="@floor.area" style="display:none" />
+            </td>
+            <td class="Rate">
+                <span>@floor.rate</span>
+                <input type="text" value="@floor.rate" style="display:none" />
+            </td>
+            <td>
+                <a class="Edit" href="javascript:;">Edit</a>
+                <a class="Update" href="javascript:;" style="display:none">Update</a>
+                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                <a class="Delete" href="javascript:;">Delete</a>
+            </td>
+        </tr>
+
+    }
+</table>
+@using (Html.BeginForm("Index", "Dynamic", FormMethod.Post))
+{
+    <table class="table table-striped table-hover" id="areaFloor" data-template="areaInfo">
+        <thead>
+            <tr>
+                <th> Floor </th>
+                <th> Area(psf)</th>
+                <th>Rate</th>
+                <th>
+                    <a href="#" class="btn btn-success btn-xs add-row">
+                        Add Floor
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+<textarea id="areaInfo" hidden="hidden">
+    <tr>
+        <td>
+                <input class="form-control" value="o_{i}" name="floor.index" type="hidden" />
+
+            <input type="text" class="form-control" name="floor[o_{i}].floor_name" placeholder="Name" />
+        </td>
+        <td>
+            <input type="text" class="form-control number" name="floor[o_{i}].area" placeholder="Area" />
+        </td>
+        <td>
+            <input type="text" class="form-control number" name="floor[o_{i}].rate" placeholder="Rate" />
+        </td>
+        <td>
+            <a href="#" class="btn btn-danger remove-row btn-xs">
+                <i class="fa fa-times"></i> Remove
+            </a>
+        </td>
+     </tr>
+</textarea>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="@Url.Content("~/Content/table-data.js")"></script>
+<script>
+    $(document).ready(function () {
+        var _GroupDepositAdd = new dynAddRow('#areaFloor');
+    });
+</script>

@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClassController.cs" />
+    <Compile Include="Controllers\DynamicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -138,6 +139,21 @@
     </Compile>
     <Compile Include="Models\Class.cs">
       <DependentUpon>Dataset.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataJack.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataJack.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataJack.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataJack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataJack.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataJack.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Dataset.Context.cs">
       <AutoGen>True</AutoGen>
@@ -154,11 +170,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Dataset.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\floor.cs">
+      <DependentUpon>DataJack.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Student.cs">
       <DependentUpon>Dataset.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentPerformance.cs">
       <DependentUpon>Dataset.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Item.cs">
+      <DependentUpon>DataJack.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1799,12 +1821,23 @@
     <Content Include="Content\plugins\toastr\toastr.css" />
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\plugins\toastr\toastr.min.js" />
+    <Content Include="Content\table-data.js" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\DataJack.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataJack.edmx</DependentUpon>
+      <LastGenOutput>DataJack.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataJack.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataJack.edmx</DependentUpon>
+      <LastGenOutput>DataJack.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\Dataset.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Dataset.Context.cs</LastGenOutput>
@@ -1981,6 +2014,13 @@
     <Content Include="Models\Dataset.edmx.diagram">
       <DependentUpon>Dataset.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\DataJack.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataJack.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataJack.edmx.diagram">
+      <DependentUpon>DataJack.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2020,6 +2060,7 @@
     <Content Include="Views\Class\Edit.cshtml" />
     <Content Include="Views\Class\Index.cshtml" />
     <Content Include="Views\Class\ViewFullList.cshtml" />
+    <Content Include="Views\Dynamic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
